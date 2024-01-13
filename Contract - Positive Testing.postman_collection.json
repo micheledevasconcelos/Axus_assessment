@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "b8a55403-06f2-4e7b-8dbd-bf6fa50b6c7f",
+		"name": "Contract - Positive Testing",
+		"description": "# About this collection\n\nThis collection helps ensure your API continues to work as expected after updates or changes. It contains sample requests for a series of tests that validate different aspects of an API, including:\n\n1. **Status code verification:** We'll check if the API returns the expected status codes for various requests, ensuring reliability and proper error handling.\n2. **JSON schema verification:** We'll make sure the JSON response conforms to a specified JSON Schema, ensuring API contracts are honored.\n3. **Response time verification:** We'll verify that the API's response time is within the acceptable range, providing a smooth user experience and optimizing performance.\n    \n4. **Header verification:** We'll confirm the presence and correct values of specific headers in the response, enabling secure and well-structured communication between your app and its users.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31398630"
+	},
+	"item": [
+		{
+			"name": "TC01-Status Code Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"keyword\": \"security\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				},
+				"description": "The test on this request asserts that the reponse has a \"200 OK\" status."
+			},
+			"response": []
+		},
+		{
+			"name": "TC01-Status Code Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "The test on this request asserts that the reponse has a \"200 OK\" status."
+			},
+			"response": []
+		},
+		{
+			"name": "TC02-Response Payload Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expectedSchema = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"        \"id\": {",
+							"            \"type\": \"string\",",
+							"            \"pattern\": \"^[a-zA-Z0-9]{8}$\"",
+							"        }",
+							"    },",
+							"    \"required\": [\"id\"]",
+							"}",
+							"",
+							"pm.test('response matches JSON schema', () => {",
+							"    pm.response.to.have.jsonSchema(expectedSchema);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"keyword\": \"security\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				},
+				"description": "This request has a test using Postman's built-in support for JSON Schema verification to ensure that the response data matches the expected shape."
+			},
+			"response": []
+		},
+		{
+			"name": "TC02-Response Payload Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var expectedSchema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"status\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"urls\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": {",
+							"        \"type\": \"string\",",
+							"        \"format\": \"uri\"",
+							"      }",
+							"    }",
+							"  },",
+							"  \"required\": [\"id\", \"status\", \"urls\"]",
+							"};",
+							"",
+							"pm.test('response matches JSON schema', () => {",
+							"    pm.response.to.have.jsonSchema(expectedSchema);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "This request has a test using Postman's built-in support for JSON Schema verification to ensure that the response data matches the expected shape."
+			},
+			"response": []
+		},
+		{
+			"name": "TC03-Response Payload Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Content-Type is present and have expected values\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"keyword\": \"security\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				},
+				"description": "This request has a test asserting that certain response headers are present or have an expected value."
+			},
+			"response": []
+		},
+		{
+			"name": "TC03-Response Payload Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Content-Type is present and have expected values\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "This request has a test asserting that certain response headers are present or have an expected value."
+			},
+			"response": []
+		},
+		{
+			"name": "TC04-Response Payload Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const baseURL = \"http://hiring.axreng.com/\";",
+							"",
+							"const urls = pm.response.json().urls;",
+							"",
+							"urls.forEach((url, index) => {",
+							"    pm.test(`Link have base URL`, function () {",
+							"        pm.expect(url).to.have.string(baseURL);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "The test on this request asserts that the response has a base URL on 'urls' links."
+			},
+			"response": []
+		},
+		{
+			"name": "TC05-Baseline Response Time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response time is less than 5 seconds\", function () {",
+							"    const fiveSecondsMs = 5_000; // 5 seconds in milliseconds",
+							"    pm.expect(pm.response.responseTime).to.be.below(fiveSecondsMs);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"keyword\": \"security\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				},
+				"description": "This request has a test asserting that a response is received within a specific time limit (in this case 5 seconds). This is useful for ensuring consistent API performance."
+			},
+			"response": []
+		},
+		{
+			"name": "TC05-Baseline Response Time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify response time is less than 5 seconds\", function () {",
+							"    const fiveSecondsMs = 5_000; // 5 seconds in milliseconds",
+							"    pm.expect(pm.response.responseTime).to.be.below(fiveSecondsMs);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{id}}"
+					]
+				},
+				"description": "This request has a test asserting that a response is received within a specific time limit (in this case 5 seconds). This is useful for ensuring consistent API performance."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:4567/crawl"
+		}
+	]
+}
